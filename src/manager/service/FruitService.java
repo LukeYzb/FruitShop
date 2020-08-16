@@ -48,12 +48,4 @@ public class FruitService {
             return null;
         }
     }
-
-    public void deleteFruitById(String delId) {
-        fruitDao.deleteFruitById(delId);
-    }
-
-    public void updateFruit(String updateId, Fruit newfruit) {
-        fruitDao.updateFruit(updateId,newfruit);
-    }
 }

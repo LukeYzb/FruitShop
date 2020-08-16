@@ -67,7 +67,7 @@ public class OtherCustomerController implements BaseCustomerController {
         for (int i = 0; i < fruits.length; i++) {
             Fruit fruit = fruits[i];
             if (fruit != null) {
-                System.out.println(fruit.getId() + "\t\t" + fruit.getName() + "\t" + fruit.getAge() + "\t\t" + fruit.getAmount());
+                System.out.println(fruit.getId() + "\t\t" + fruit.getName() + "\t" + fruit.getPrice() + "\t\t" + fruit.getAmount());
             }
         }
     }

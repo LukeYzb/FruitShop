@@ -1,57 +1,31 @@
 package manager.service;
 
-import manager.dao.BaseCustomerDao;
-import manager.domain.Customer;
-import manager.factory.CustomerDaoFactory;
+import manager.dao.OtherManagerDao;
+import manager.domain.Manager;
+import manager.factory.ManagerDaoFactory;
 
 public class ManagerService {
-    private BaseCustomerDao customerDao = CustomerDaoFactory.getCustomerDao();
-    public boolean addCustomer(Customer customer) {
-//        顾客对象交给CustomerDao库管
-//        CustomerDao customerDao=new CustomerDao();
+    private OtherManagerDao managerDao = ManagerDaoFactory.getManagerDao();
+    public boolean addManager(Manager manager) {
+//        顾客对象交给ManagerDao库管
+//        ManagerDao managerDao=new ManagerDao();
 //库管来找顾客是否存在
-        return customerDao.addCustomer(customer);
+        return managerDao.addManager(manager);
     }
 
     public boolean isExists(String id) {
-//        CustomerDao customerDao=new CustomerDao();
-        Customer[] customers = customerDao.findAllCustomer();
+//        ManagerDao managerDao=new ManagerDao();
+        Manager[] managers = managerDao.findAllManager();
 //        假设id不存在
         boolean exists=false;
 //        遍历数组
-        for (int i = 0; i < customers.length; i++) {
-            Customer customer = customers[i];
-            if(customer !=null&& customer.getId().equals(id)){
+        for (int i = 0; i < managers.length; i++) {
+            Manager manager = managers[i];
+            if(manager !=null&& manager.getId().equals(id)){
                 exists=true;
                 break;
             }
         }
         return exists;
-    }
-
-    public Customer[] findAllCustomer() {
-//        用CustomerDao获取顾客数组
-        Customer[] allCustomer = customerDao.findAllCustomer();
-        boolean flag=false;
-        for (int i = 0; i < allCustomer.length; i++) {
-            Customer customer = allCustomer[i];
-            if(customer !=null){
-                flag=true;
-                break;
-            }
-        }
-        if(flag==true){
-            return allCustomer;
-        }else {
-            return null;
-        }
-    }
-
-    public void deleteCustomerById(String delId) {
-        customerDao.deleteCustomerById(delId);
-    }
-
-    public void updateCustomer(String updateId, Customer newcustomer) {
-        customerDao.updateCustomer(updateId,newcustomer);
     }
 }

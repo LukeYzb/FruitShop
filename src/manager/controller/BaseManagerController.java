@@ -1,12 +1,12 @@
 package manager.controller;
 
 import manager.domain.Customer;
-import manager.service.ManagerService;
+import manager.service.CustomerService;
 
 import java.util.Scanner;
 
 public interface BaseManagerController {
-     ManagerService managerService=new ManagerService();
+     CustomerService CUSTOMER_SERVICE =new CustomerService();
      Scanner sc = new Scanner(System.in);
 //    开启老师管理系统，展示菜单
     public void start();

@@ -3,15 +3,13 @@ package manager.domain;
 public class Obj {
     private String id;
     private String name;
-    private String money;
 
     public Obj() {
     }
 
-    public Obj(String id, String name, String money) {
+    public Obj(String id, String name) {
         this.id = id;
         this.name = name;
-        this.money = money;
     }
 
     public String getId() {
@@ -30,12 +28,11 @@ public class Obj {
         this.name = name;
     }
 
-    public String getAge() {
-        return money;
+    @Override
+    public String toString() {
+        return "Obj{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
-
-    public void setAge(String money) {
-        this.money = money;
-    }
-
 }
