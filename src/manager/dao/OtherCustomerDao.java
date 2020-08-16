@@ -11,7 +11,7 @@ public class OtherCustomerDao implements BaseCustomerDao{
 
     //    用IO流传入Customer对象，然后添加到customers集合里
     private void IputCustomer(){
-
+        System.out.println("hhh");
     }
     //    用IO流传出Customer对象，然后添加到customers集合里
     private void OutputCustomer(){
