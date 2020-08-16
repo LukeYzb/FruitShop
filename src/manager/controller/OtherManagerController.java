@@ -81,9 +81,9 @@ public class OtherManagerController implements BaseManagerController{
         l:
         while (true) {
             System.out.println("欢迎使用水果管理功能!");
-            System.out.print("1：添加水果");
-            System.out.print("  2：修改水果数据");
-            System.out.println("  3：返回上一层");
+            System.out.print("①：添加水果");
+            System.out.print("  ②：修改水果数据");
+            System.out.println("  ③：返回上一层");
             System.out.print("请输入要选择的操作（1~3）：");
             lo:
             while (true) {
@@ -188,12 +188,15 @@ public class OtherManagerController implements BaseManagerController{
         System.out.println("请输入顾客昵称：");
         String name = sc.next();
         System.out.println("请输入充值金额：");
-        String age = sc.next();
+        String amount = sc.next();
 //        将键盘录入信息封装为顾客对象
         Customer newcustomer = new Customer();
+
+        String originamount=newcustomer.getAge();
+        amount=amount+originamount;
         newcustomer.setId(id);
         newcustomer.setName(name);
-        newcustomer.setAge(age);
+        newcustomer.setAge(amount);
         return newcustomer;
     }
 }
