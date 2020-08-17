@@ -2,6 +2,7 @@ package manager.dao.impl;
 
 import manager.dao.CustomerDao;
 import manager.domain.Customer;
+import manager.util.StreamUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -34,16 +35,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public List<Customer> findAllCustomer() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("fruitshop\\customer.txt"));
-        String s;
-        List<Customer> customers = new ArrayList<>();
-        while ((s = br.readLine()) != null) {
-            Customer customer = Customer.toObj(s);
-            customers.add(customer);
-        }
-        br.close();
-
-        return customers;
+        return StreamUtils.findAll(Customer.class);
     }
 
     @Override

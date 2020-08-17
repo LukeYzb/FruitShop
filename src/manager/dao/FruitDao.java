@@ -39,4 +39,21 @@ public interface FruitDao {
      * @return是否成功
      */
     boolean updateFruit(Fruit fruit) throws IOException;
+
+    /**
+     * 购买水果,更新底层数据
+     * @param name
+     * @param amount
+     * @return是否更新成功,如果底层数据小于0会返回false
+     */
+    boolean buyFruit(String name, String amount);
+
+    /**
+     * 通过水果姓名查找特性水果
+     * @param name
+     * @return该特定水果对象,如果对象为null,则不存在
+     * @throws IOException
+     */
+    Fruit getByName(String name) throws IOException;
+
 }

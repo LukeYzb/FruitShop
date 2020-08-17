@@ -59,4 +59,16 @@ public class Customer extends Obj {
         customer.setMoney(split[3]);
         return customer;
     }
+
+    @Override
+    public void putString(String s) {
+        if (s == null) {
+            return;
+        }
+        String[] split = s.split(",");
+        this.setId(split[0]);
+        this.setName(split[1]);
+        this.setPassword(split[2]);
+        this.setMoney(split[3]);
+    }
 }

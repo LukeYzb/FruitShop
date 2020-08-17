@@ -3,6 +3,7 @@ package manager.dao.impl;
 import manager.dao.FruitDao;
 import manager.domain.Customer;
 import manager.domain.Fruit;
+import manager.util.StreamUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -29,15 +30,7 @@ public class FruitDaoImpl implements FruitDao {
 
     @Override
     public List<Fruit> findAllFruit() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("fruitshop\\fruit.txt"));
-        String s;
-        List<Fruit> fruits = new ArrayList<>();
-        while ((s = br.readLine()) != null) {
-            Fruit fruit = Fruit.toObj(s);
-            fruits.add(fruit);
-        }
-        br.close();
-        return fruits;
+        return StreamUtils.findAll(Fruit.class);
     }
 
     @Override
@@ -80,7 +73,16 @@ public class FruitDaoImpl implements FruitDao {
         return d && a;
     }
 
-    public void buyFruit(String name, String amount) {
+    @Override
+    public boolean buyFruit(String name, String amount) {
+        return false;
     }
+
+    @Override
+    public Fruit getByName(String name) throws IOException {
+        return null;
+    }
+
+
 }
 

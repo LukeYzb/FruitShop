@@ -1,8 +1,10 @@
 package manager.dao.impl;
 
 import manager.dao.ManagerDao;
+import manager.domain.Customer;
 import manager.domain.Fruit;
 import manager.domain.Manager;
+import manager.util.StreamUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -30,15 +32,7 @@ public class ManagerDaoImpl implements ManagerDao {
 
     @Override
     public List<Manager> findAllManager() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("fruitshop\\manager.txt"));
-        String s;
-        List<Manager> managers = new ArrayList<>();
-        while ((s = br.readLine()) != null) {
-            Manager manager = Manager.toObj(s);
-            managers.add(manager);
-        }
-        br.close();
-        return managers;
+        return StreamUtils.findAll(Manager.class);
     }
 
     @Override

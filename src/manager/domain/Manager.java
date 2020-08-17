@@ -45,4 +45,15 @@ public class Manager extends Obj {
         manager.setPassword(split[2]);
         return manager;
     }
+
+    @Override
+    public void putString(String s) {
+        if (s == null) {
+            return;
+        }
+        String[] split = s.split(",");
+        this.setId(split[0]);
+        this.setName(split[1]);
+        this.setPassword(split[2]);
+    }
 }

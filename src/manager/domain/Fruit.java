@@ -58,4 +58,16 @@ public class Fruit extends Obj {
         fruit.setAmount(split[3]);
         return fruit;
     }
+
+    @Override
+    public void putString(String s) {
+        if (s == null) {
+            return;
+        }
+        String[] split = s.split(",");
+        this.setId(split[0]);
+        this.setName(split[1]);
+        this.setPrice(split[2]);
+        this.setAmount(split[3]);
+    }
 }

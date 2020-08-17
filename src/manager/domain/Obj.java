@@ -37,4 +37,11 @@ public class Obj {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+    /**
+     * 给已有对象传入String字符串,确定对象属性
+     * @param s
+     */
+    public void putString(String s) {
+    }
 }
