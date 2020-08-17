@@ -13,12 +13,12 @@ public class ManagerService {
 //        ManagerDao managerDao=new ManagerDao();
         Manager[] managers = managerDao.findAllManager().toArray(new Manager[0]);
 //        假设id不存在
-        boolean exists=false;
+        boolean exists = false;
 //        遍历数组
         for (int i = 0; i < managers.length; i++) {
             Manager manager = managers[i];
-            if(manager !=null&& manager.getId().equals(id)){
-                exists=true;
+            if (manager != null && manager.getId().equals(id)) {
+                exists = true;
                 break;
             }
         }

@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface CustomerDao {
 
+
     /**
      * 添加顾客对象
      * @param customer

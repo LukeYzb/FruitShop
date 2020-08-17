@@ -2,6 +2,7 @@ package manager.controller;
 
 import manager.service.FruitService;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public interface BaseCustomerController {
@@ -9,9 +10,9 @@ public interface BaseCustomerController {
     Scanner sc = new Scanner(System.in);
 
     //    开启顾客管理系统，展示菜单
-    public void start();
+    public void start() throws IOException;
 
-    public void logIn();
+    public void logIn() throws IOException;
 
     public void findAllFruit();
 

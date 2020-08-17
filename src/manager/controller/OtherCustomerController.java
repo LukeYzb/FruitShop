@@ -1,25 +1,29 @@
 package manager.controller;
 
+import manager.domain.Customer;
 import manager.domain.Fruit;
+import manager.service.CustomerService;
 import manager.service.FruitService;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class OtherCustomerController implements BaseCustomerController {
-    private FruitService customerService = new FruitService();
-    private Scanner sc = new Scanner(System.in);
+     FruitService customerService = new FruitService();
+     Scanner sc = new Scanner(System.in);
 
     //    开启顾客购买系统，展示菜单
-    public void start() {
+    public void start() throws IOException {
         l:
         while (true) {
-//            ①②③④⑤
-            System.out.println("欢迎使用顾客购买功能!");
-            System.out.print("①：登录");
-            System.out.print("  ②：查看水果");
-            System.out.print("  ③：购买水果");
-            System.out.print("  ④：结账");
-            System.out.println("⑤：退出");
+             //①②③④⑤
+            System.out.println("-----------欢迎使用顾客购买功能!-----------");
+            System.out.print("①登录");
+            System.out.print("\t②查看水果");
+            System.out.print("\t③购买水果");
+            System.out.print("\t④结账");
+            System.out.println("\t⑤退出");
             System.out.print("请输入要选择的操作（1~5）：");
             lo:
             while (true) {
@@ -39,11 +43,10 @@ public class OtherCustomerController implements BaseCustomerController {
                         checkout();
                         break lo;
                     case "5":
-                        System.out.println("退出顾客购买系统，成功！");
-//                        退出当前正在运行的JVM虚拟机
+                        System.out.println("退出成功");
                         break l;
                     default:
-                        System.out.print("您的输入有误，请重新输入。");
+                        System.out.print("输入有误，请重新输入");
                         break lo1;
                 }
             }
@@ -51,36 +54,61 @@ public class OtherCustomerController implements BaseCustomerController {
     }
 
     @Override
-    public void logIn() {
-//需要修改，输入账号（输入n返回），判断账号有误重新输入，输入密码（输入n返回），判断密码有误重新输入
-    }
-
-    @Override
-    public void findAllFruit() {
-        Fruit[] fruits = customerService.findAllFruit();
-//        判断数组是否为空
-        if (fruits == null) {
-            System.out.println("查无信息，请添加后重试。");
-            return;
-        }
-//        遍历数组打印水果信息
-        System.out.println("编号\t\t名称\t价格\t\t库存量");
-        for (int i = 0; i < fruits.length; i++) {
-            Fruit fruit = fruits[i];
-            if (fruit != null) {
-                System.out.println(fruit.getId() + "\t\t" + fruit.getName() + "\t" + fruit.getPrice() + "\t\t" + fruit.getAmount());
+    public void logIn() throws IOException {
+        CustomerService customerService=new CustomerService();
+        while (true){
+            System.out.println("请输入账户");
+            String id=sc.next();
+            System.out.println("请输入密码");
+            String password=sc.next();
+            boolean flag=customerService.isExist(id,password);
+            if (flag) {
+                System.out.println("账号或者密码有误");
+            } else {
+                System.out.println("登录成功");
+                break;
             }
         }
     }
 
     @Override
+    public void findAllFruit() {
+        ArrayList<Fruit> fruits = FruitService.findAllFruit();
+//        判断数组是否为空
+        if (fruits == null) {
+            System.out.println("查无信息，请添加后重试");
+            return;
+        }
+//        遍历数组打印学生信息
+        System.out.println("编号\t\t名称\t价格\t\t库存量");
+        for (Fruit fruit : fruits) {
+            System.out.println(fruit.toTxt());
+        }
+
+    }
+    @Override
     public void buyFruit() {
-//需要修改
+        CustomerService customer=new CustomerService();
+        lo:
+        while (true) {
+            System.out.println("请输入你要购买的水果");
+            String name = sc.next();
+            System.out.println("请输入你要购买的数量");
+            String amount = sc.next();
+            System.out.println("是否继续购买Y/N");
+            String go = sc.next();
+            customer.buyFruit(name,amount);
+            if (go == "Y") {
+                continue;
+            } else {
+                break lo;
+            }
+        }
     }
 
     @Override
     public void checkout() {
-//需要修改，添加结账后显示账单（同乐）
+     //需要修改，添加结账后显示账单（同乐）
     }
 
 
