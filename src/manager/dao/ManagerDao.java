@@ -2,40 +2,42 @@ package manager.dao;
 
 import manager.domain.Manager;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public interface ManagerDao {
-    /**
-     * 添加管理员对象
-     * @param manager
-     * @return是否成功
-     */
-    boolean addManager(Manager manager);
+//    /**
+//     * 添加管理员对象
+//     * @param manager
+//     * @return是否成功
+//     */
+//    boolean addManager(Manager manager);
 
     /**
      * 查询所有管理员信息
      * @return一个list集合
      */
-    List<Manager> findAllManager();
+    List<Manager> findAllManager() throws IOException;
 
-    /**
-     * 删除特定Id对象
-     * @param delId
-     * @return是否成功
-     */
-    boolean deleteManagerById(String delId);
+//    /**
+//     * 删除特定Id对象
+//     * @param delId
+//     * @return是否成功
+//     */
+//    boolean deleteManagerById(String delId);
 
-    /**
-     * 查询特定Id管理员对象
-     * @param id
-     * @return管理员对象
-     */
-    Manager getIndex(String id);
+//    /**
+//     * 查询特定Id管理员对象
+//     * @param id
+//     * @return管理员对象
+//     */
+//    Manager getIndex(String id);
 
-    /**
-     * 更新管理员对象
-     * @param manager
-     * @return是否成功
-     */
-    boolean updateManager(Manager manager);
+//    /**
+//     * 更新管理员对象
+//     * @param manager
+//     * @return是否成功
+//     */
+//    boolean updateManager(Manager manager);
 }

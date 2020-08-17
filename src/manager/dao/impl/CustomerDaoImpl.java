@@ -56,7 +56,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public List<Customer> findAllCustomer() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("fruitshop\\customer.txt"));
+        BufferedReader br = new BufferedReader(new FileReader(".\\customer.txt"));//获取相对路径fruit下文件
         String s;
         List<Customer> customers = new ArrayList<>();
         while ((s = br.readLine()) != null) {

@@ -12,7 +12,7 @@ public interface BaseManagerController {
 //    开启管理系统，展示菜单
     public void start() throws IOException;
 
-    public boolean logIn();
+    public boolean logIn() throws IOException;
 
     public void manageCustomer() throws IOException;
 

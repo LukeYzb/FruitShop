@@ -16,7 +16,9 @@ public class OtherManagerController implements BaseManagerController {
     private Scanner sc = new Scanner(System.in);
 
     @Override
-    public boolean logIn() {
+    public boolean logIn() throws IOException {
+        boolean isManager1=false;
+        boolean isManager2=false;
         boolean isManager=false;
         String Id = null;
         l:
@@ -26,8 +28,8 @@ public class OtherManagerController implements BaseManagerController {
 //            判断ID是否存在
             l1:
             while (true) {
-                boolean exists = ManagerService.isExists(Id);
-                if (!exists) {//exists为负,则执行
+                boolean exists1 = ManagerService.idIsExists(Id);
+                if (!exists1) {//exists为负,则执行
                     System.out.println("ID不存在，退出请输入0，不退出请重新输入ID：");
                     int exit;
                     exit = sc.nextInt();
@@ -39,10 +41,34 @@ public class OtherManagerController implements BaseManagerController {
                         Id = String.valueOf(exit);
                     }
                 } else {
-                    isManager=true;
+                    isManager1=true;
+                    break l1;
+                }
+            }
+            l2:
+            System.out.println("请输入管理员密码：");
+            String passwd = sc.next();
+            while (true) {
+                boolean exists2 = ManagerService.passwdIsExists(passwd);
+                if (!exists2) {//exists为负,则执行
+                    System.out.println("ID不存在，退出请输入0，不退出请重新输入ID：");
+                    int exit;
+                    exit = sc.nextInt();
+                    if (exit == 0) {
+                        Id = null;
+                        System.out.println("退出成功！");
+                        break l;
+                    } else {
+                        Id = String.valueOf(exit);
+                    }
+                } else {
+                    isManager2=true;
                     break l;
                 }
             }
+        }
+        if(isManager1==true&&isManager2==true){
+            isManager=true;
         }
         return isManager;
     }
