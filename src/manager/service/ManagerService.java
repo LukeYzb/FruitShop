@@ -5,17 +5,11 @@ import manager.domain.Manager;
 import manager.factory.ManagerDaoFactory;
 
 public class ManagerService {
-    private ManagerDaoImpl managerDao = ManagerDaoFactory.getManagerDao();
-    public boolean addManager(Manager manager) {
-//        顾客对象交给ManagerDao库管
-//        ManagerDao managerDao=new ManagerDao();
-//库管来找顾客是否存在
-        return managerDao.addManager(manager);
-    }
+    private static ManagerDaoImpl managerDao = ManagerDaoFactory.getManagerDao();
 
-    public boolean isExists(String id) {
+    public static boolean isExists(String id) {
 //        ManagerDao managerDao=new ManagerDao();
-        Manager[] managers = managerDao.findAllManager();
+        Manager[] managers = managerDao.findAllManager().toArray(new Manager[0]);
 //        假设id不存在
         boolean exists=false;
 //        遍历数组

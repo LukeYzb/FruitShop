@@ -23,7 +23,7 @@ public interface FruitDao {
      * @param delId
      * @return是否成功
      */
-    boolean deleteFruitById(String delId);
+    void deleteFruitById(String delId);
 
     /**
      * 查询特定Id水果
@@ -34,8 +34,8 @@ public interface FruitDao {
 
     /**
      * 更新水果信息
-     * @param fruit
+     * @param updateId,newfruit
      * @return是否成功
      */
-    boolean updateFruit(Fruit fruit);
+    void updateFruit(String updateId, Fruit newfruit);
 }

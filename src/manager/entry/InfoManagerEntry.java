@@ -3,10 +3,11 @@ package manager.entry;
 import manager.controller.OtherCustomerController;
 import manager.controller.OtherManagerController;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class InfoManagerEntry {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         l:
         while (true){
@@ -27,8 +28,17 @@ public class InfoManagerEntry {
                         break lo;
                     case "2":
 //                        开启管理者系统
-                        OtherManagerController otherManagerController =new OtherManagerController();
-                        otherManagerController.start();
+                        lo2:
+                        while(true){
+                            OtherManagerController otherManagerController =new OtherManagerController();
+                            boolean isManager=otherManagerController.logIn();
+                            if(isManager==true){
+                                otherManagerController.start();
+                                break lo2;
+                            }else {
+                                System.out.println("输入有误，请重新输入！");
+                            }
+                        }
                         break lo;
                     case "3":
                         System.out.println("退出成功，欢迎下次使用！");

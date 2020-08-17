@@ -1,13 +1,23 @@
 package manager.service;
 
 import manager.dao.FruitDao;
+import manager.domain.Customer;
 import manager.domain.Fruit;
 import manager.factory.FruitDaoFactory;
 
 public class FruitService {
 //    通过水果库管工厂类，获取库管对象
-    private FruitDao fruitDao= FruitDaoFactory.getFruitDao();
-//    private OtherFruitDao fruitDao=new OtherFruitDao();
+    private static FruitDao fruitDao= FruitDaoFactory.getFruitDao();
+
+    public static void updateFruit(String updateId, Fruit newfruit) {
+        fruitDao.updateFruit(updateId,newfruit);
+    }
+
+    public static void deleteFruitById(String delId) {
+        fruitDao.deleteFruitById(delId);
+    }
+
+    //    private OtherFruitDao fruitDao=new OtherFruitDao();
     public boolean addFruit(Fruit fruit) {
 //        水果对象交给FruitDao库管
 //        FruitDao fruitDao=new FruitDao();
@@ -17,7 +27,7 @@ public class FruitService {
 
     public boolean isExists(String id) {
 //        FruitDao fruitDao=new FruitDao();
-        Fruit[] fruits =fruitDao.findAllFruit();
+        Fruit[] fruits = fruitDao.findAllFruit().toArray(new Fruit[0]);
 //        假设id不存在
         boolean exists=false;
 //        遍历数组
@@ -32,20 +42,7 @@ public class FruitService {
     }
 
     public Fruit[] findAllFruit() {
-//        用FruitDao获取水果数组
-        Fruit[] allFruit = fruitDao.findAllFruit();
-        boolean flag=false;
-        for (int i = 0; i < allFruit.length; i++) {
-            Fruit fruit = allFruit[i];
-            if(fruit !=null){
-                flag=true;
-                break;
-            }
-        }
-        if(flag==true){
-            return allFruit;
-        }else {
-            return null;
-        }
+        Fruit[] fruits = fruitDao.findAllFruit().toArray(new Fruit[100]);
+        return fruits;
     }
 }

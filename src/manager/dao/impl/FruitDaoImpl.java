@@ -15,12 +15,13 @@ public class FruitDaoImpl implements FruitDao {
 
     @Override
     public List<Fruit> findAllFruit() {
+//        需要从读取的数组中获取
         return null;
     }
 
     @Override
-    public boolean deleteFruitById(String delId) {
-        return false;
+    public void deleteFruitById(String delId) {
+
     }
 
     @Override
@@ -29,8 +30,8 @@ public class FruitDaoImpl implements FruitDao {
     }
 
     @Override
-    public boolean updateFruit(Fruit fruit) {
-        return false;
+    public void updateFruit(String updateId, Fruit newfruit) {
+
     }
 }
 

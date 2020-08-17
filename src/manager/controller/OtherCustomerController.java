@@ -13,6 +13,7 @@ public class OtherCustomerController implements BaseCustomerController {
     public void start() {
         l:
         while (true) {
+//            ①②③④⑤
             System.out.println("欢迎使用顾客购买功能!");
             System.out.print("①：登录");
             System.out.print("  ②：查看水果");

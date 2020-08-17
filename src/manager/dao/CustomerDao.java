@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface CustomerDao {
+
     /**
      * 添加顾客对象
      * @param customer
@@ -24,7 +25,7 @@ public interface CustomerDao {
      * @param delId
      * @return是否删除成功
      */
-    boolean deleteCustomerById(String delId);
+    void deleteCustomerById(String delId) throws IOException;
 
     /**
      * 查询特定Id顾客
@@ -33,10 +34,5 @@ public interface CustomerDao {
      */
     Customer getById(String id);
 
-    /**
-     * 更新特定Id顾客
-     * @param customer
-     * @return是否更新成功
-     */
-    boolean updateCustomer(Customer customer);
+     void updateCustomer(String updateId, Customer newcustomer) throws IOException;
 }
