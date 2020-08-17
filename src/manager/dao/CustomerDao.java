@@ -25,14 +25,19 @@ public interface CustomerDao {
      * @param delId
      * @return是否删除成功
      */
-    void deleteCustomerById(String delId) throws IOException;
+    boolean deleteCustomerById(String delId) throws IOException;
 
     /**
      * 查询特定Id顾客
      * @param id
      * @return顾客对象
      */
-    Customer getById(String id);
+    Customer getById(String id) throws IOException;
 
-     void updateCustomer(String updateId, Customer newcustomer) throws IOException;
+    /**
+     * 更新特定Id顾客
+     * @param customer
+     * @return是否更新成功
+     */
+    boolean updateCustomer(Customer customer) throws IOException;
 }
