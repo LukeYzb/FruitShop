@@ -41,7 +41,7 @@ public class CustomerService {
     public boolean isExists(String id) throws IOException {
 
 
-        Customer[] customers = customerDaoImpl.findAllCustomer().toArray(new Customer[0]);
+        Customer[] customers = customerDaoImpl.findAllCustomer().toArray(new Customer[100]);
         //假设id不存在
         boolean flag = false;
         //遍历数组
@@ -55,12 +55,12 @@ public class CustomerService {
         return flag;
     }
 
-    public void updateCustomer(Customer newcustomer) throws IOException {
-        customerDao.updateCustomer(newcustomer);
+    public boolean updateCustomer(Customer newcustomer) throws IOException {
+        return customerDao.updateCustomer(newcustomer);
     }
 
-    public void deleteCustomerById(String delId) throws IOException {
-        customerDao.deleteCustomerById(delId);
+    public boolean deleteCustomerById(String delId) throws IOException {
+        return customerDao.deleteCustomerById(delId);
     }
 
     public Customer[] findAllCustomer() throws IOException {

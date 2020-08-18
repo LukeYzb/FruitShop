@@ -72,7 +72,7 @@ public class OtherCustomerController implements BaseCustomerController {
     }
 
     @Override
-    public void findAllFruit() {
+    public void findAllFruit() throws IOException {
         ArrayList<Fruit> fruits = FruitService.findAllFruit();
 //        判断数组是否为空
         if (fruits == null) {
@@ -113,7 +113,7 @@ public class OtherCustomerController implements BaseCustomerController {
 
 
     //    录入水果ID，可以用在buyFruit功能里
-    public String inputFruitId() {
+    public String inputFruitId() throws IOException {
         String Id = null;
         l:
         while (true) {

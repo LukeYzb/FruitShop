@@ -2,17 +2,11 @@ package manager.domain;
 
 public class Customer extends Obj {
     //password密码
-    private String password;
+//    test，private改public，需要解决子类封装对象没有父类属性的问题
+    public String password;
     //money金额
-    private String money;
-
-    public String getMoney() {
-        return money;
-    }
-
-    public void setMoney(String money) {
-        this.money = money;
-    }
+//    test，private改public，需要解决子类封装对象没有父类属性的问题
+    public String money;
 
     public Customer() {
     }
@@ -21,6 +15,14 @@ public class Customer extends Obj {
     public Customer(String id, String name, String password, String money) {
         super(id, name);
         this.password = password;
+        this.money = money;
+    }
+
+    public String getMoney() {
+        return money;
+    }
+
+    public void setMoney(String money) {
         this.money = money;
     }
 
