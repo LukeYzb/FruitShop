@@ -5,6 +5,7 @@ import manager.dao.CustomerDao;
 import manager.dao.impl.CustomerDaoImpl;
 import manager.dao.impl.FruitDaoImpl;
 import manager.domain.Customer;
+import manager.domain.Fruit;
 import manager.factory.CustomerDaoFactory;
 
 import java.io.IOException;
@@ -68,7 +69,8 @@ public class CustomerService {
         return customers;
     }
 
-    public  void buyFruit(String name, String amount) {
+    public  void buyFruit(String name, String amount) throws IOException {
+
         fruitDao.buyFruit(name, amount);
     }
 }

@@ -16,7 +16,7 @@ public interface BaseCustomerController {
 
     public void findAllFruit() throws IOException;
 
-    public void buyFruit();
+    public void buyFruit() throws IOException;
 
     public void checkout();
 

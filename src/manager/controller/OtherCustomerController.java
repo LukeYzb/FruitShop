@@ -38,7 +38,7 @@ public class OtherCustomerController implements BaseCustomerController {
                         break lo;
                     case "3":
                         buyFruit();
-                        break lo;
+                        //break lo;
                     case "4":
                         checkout();
                         break lo;
@@ -73,13 +73,14 @@ public class OtherCustomerController implements BaseCustomerController {
 
     @Override
     public void findAllFruit() throws IOException {
-        ArrayList<Fruit> fruits = FruitService.findAllFruit();
-//        判断数组是否为空
+        FruitService fruitService=new FruitService();
+        ArrayList<Fruit> fruits = fruitService.findAllFruit();
+        //判断数组是否为空
         if (fruits == null) {
             System.out.println("查无信息，请添加后重试");
             return;
         }
-//        遍历数组打印学生信息
+        //遍历数组打印水果信息
         System.out.println("编号\t\t\t名称\t\t价格\t\t库存量");
 
         for (Fruit fruit : fruits) {
@@ -88,28 +89,47 @@ public class OtherCustomerController implements BaseCustomerController {
     }
 
     @Override
-    public void buyFruit() {
+    public void buyFruit() throws IOException {
         CustomerService customer = new CustomerService();
-        lo:
-        while (true) {
-            System.out.println("请输入你要购买的水果");
-            String name = sc.next();
-            System.out.println("请输入你要购买的数量");
-            String amount = sc.next();
-            System.out.println("是否继续购买Y/N");
-            String go = sc.next();
-            customer.buyFruit(name, amount);
-            if (go == "Y") {
-                continue;
-            } else {
-                break lo;
+        FruitService fruitService=new FruitService();
+        lock: while (true) {
+            lo:
+            while(true){
+                System.out.println("请输入你要购买的水果");
+                String name = sc.next();
+                boolean exists = fruitService.isExist(name);
+                if(!exists){
+                    System.out.println("你输入的水果不存在，重新输入");
+                    break lo;
+                }
+                System.out.println("请输入你要购买的数量");
+                String amount = sc.next();
+                System.out.println("是否继续购买Y/N");
+                String go = sc.next();
+                customer.buyFruit(name, amount);
+                if (go == "Y") {
+                    continue;
+                } else if(go == "Y"){
+                    continue ;
+                } else{
+                    break lock;
+                }
             }
+
         }
     }
 
     @Override
     public void checkout() {
-        //需要修改，添加结账后显示账单（同乐）
+        /*customerService.checkOut(total);
+        if(total>=100&&total<=200){
+            total=((total)-100)*0.9+100;
+        }else if (total>200&&total<=500){
+            total=
+        }else {
+
+        }
+        System.out.println("您一共消费"+total);*/
     }
 
 
