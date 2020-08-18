@@ -13,25 +13,28 @@ import java.util.List;
 import java.util.Scanner;
 
 public class OtherCustomerController implements BaseCustomerController {
-    FruitService customerService = new FruitService();
-    OtherManagerController otherManagerController=new OtherManagerController();
-    Customer customer=new Customer();
+    FruitService fruitService = new FruitService();
+    CustomerService customerService = new CustomerService();
+    OtherManagerController otherManagerController = new OtherManagerController();
+    Customer customer = new Customer();
     Scanner sc = new Scanner(System.in);
 
-    //开启顾客购买系统，展示菜单
+    //    开启顾客购买系统，展示菜单
     public void start() throws IOException {
         l:
         while (true) {
+            //①②③④⑤
             System.out.println("-----------欢迎使用顾客购买功能!-----------");
             System.out.print("①登录");
             System.out.print("\t②查看水果");
             System.out.print("\t③购买水果");
             System.out.print("\t④结账");
-            System.out.println("\t⑤返回上一层");
+            System.out.println("\t⑤退出");
             System.out.print("请输入要选择的操作（1~5）：");
             lo:
             while (true) {
                 String choice = sc.next();
+                ArrayList<Fruit> fruits = null;
                 lo1:
                 switch (choice) {
                     case "1":
@@ -41,10 +44,10 @@ public class OtherCustomerController implements BaseCustomerController {
                         findAllFruit();
                         break lo;
                     case "3":
-                        buyFruit();
-                        break lo;
+                        fruits = buyFruit();
+                        //break lo;
                     case "4":
-                        checkout();
+                        checkout(fruits);
                         break lo;
                     case "5":
                         System.out.println("退出成功");
@@ -61,9 +64,9 @@ public class OtherCustomerController implements BaseCustomerController {
     public void logIn() throws IOException {
         CustomerService customerService = new CustomerService();
         while (true) {
-            System.out.println("请输入账户:");
+            System.out.println("请输入账户");
             String id = sc.next();
-            System.out.println("请输入密码:");
+            System.out.println("请输入密码");
             String password = sc.next();
             boolean flag = customerService.isExist(id, password);
             if (!flag) {
@@ -77,7 +80,7 @@ public class OtherCustomerController implements BaseCustomerController {
 
     @Override
     public void findAllFruit() throws IOException {
-        FruitService fruitService=new FruitService();
+        FruitService fruitService = new FruitService();
         ArrayList<Fruit> fruits = fruitService.findAllFruit();
         //判断数组是否为空
         if (fruits == null) {
@@ -93,63 +96,70 @@ public class OtherCustomerController implements BaseCustomerController {
     }
 
     @Override
-    public void buyFruit() throws IOException {
+    public ArrayList<Fruit> buyFruit() throws IOException {
+        ArrayList<Fruit> boughtFruit = new ArrayList<>();
         CustomerService customer = new CustomerService();
-        FruitService fruitService=new FruitService();
-        lock: while (true) {
-            lo2: while(true){
+        FruitService fruitService = new FruitService();
+        lock:
+        while (true) {
+            lo:
+            while (true) {
                 System.out.println("请输入你要购买的水果");
                 String name = sc.next();
                 boolean exists = fruitService.isExist(name);
-                if(!exists){
+                Fruit byName = fruitService.getByName(name);
+                if (!exists) {
                     System.out.println("你输入的水果不存在，重新输入");
-                    break lo2;
+                    break lo;
                 }
                 System.out.println("请输入你要购买的数量");
                 String amount = sc.next();
+                byName.setAmount(amount);
+                customer.buyFruit(name, amount);
+                boughtFruit.add(byName);
                 System.out.println("是否继续购买Y/N");
                 String go = sc.next();
-                customer.buyFruit(name, amount);
                 if (go.equalsIgnoreCase("Y")) {
-                    break lo2;
-                } else{
-                    System.out.println("购物结束，请结账");
+                    break lo;
+                } else if(go.equalsIgnoreCase("N")){
                     break lock;
+                }else {
+                    System.out.println("您的输入有误");
                 }
             }
-
         }
+        return boughtFruit;
     }
 
     @Override
-    public void checkout() {
-        int total=0;
-        if (total >= 100 && total <= 200) {
-            total = (int) (((total) - 100) * 0.9 + 100);
-        } else if (total > 200 && total <= 500) {
-            total = (int) (((total) - 200) * 0.8 + 190);
-        } else {
-            total = (int) (((total) - 500) * 0.7 + 350);
+    public void checkout(ArrayList<Fruit> boughtFruit) {
+        System.out.println("您购买了以下水果, 请查看确认");
+        System.out.println("名称\t\t单价\t\t数量\t\t价格");
+        int totalPrice = 0;
+        for (Fruit fruit : boughtFruit) {
+            String[] split = fruit.toTxt().split(",");
+            int total = Integer.parseInt(split[2]) * Integer.parseInt(split[3]);
+            System.out.println(split[1] + "\t\t" + split[2] + "\t\t" + split[3] + "\t\t" + total);
+            totalPrice += total;
         }
-        String amount = Integer.toString(total);
-        System.out.println("您一共消费" + total);
-    //获取水果账单
+        int finalPrice = customerService.checkout(totalPrice);
+        System.out.println("总价为"+totalPrice+"\t\t\t\t\t\t"+"优惠后的价格为"+finalPrice);
     }
 
-    //录入水果ID，可以用在buyFruit功能里
+
+    //    录入水果ID，可以用在buyFruit功能里
     public String inputFruitId() throws IOException {
         String Id = null;
         l:
         while (true) {
-            System.out.println("请输入水果的账号：");
+            System.out.println("请输入水果的ID：");
             Id = sc.next();
-            //判断ID是否存在
+//            判断ID是否存在
             l1:
             while (true) {
                 boolean exists = customerService.isExists(Id);
-                //exists为负,则执行
-                if (!exists) {
-                    System.out.println("账号不存在，退出请输入0，不退出请重新输入账号：");
+                if (!exists) {//exists为负,则执行
+                    System.out.println("ID不存在，退出请输入0，不退出请重新输入ID：");
                     int exit;
                     exit = sc.nextInt();
                     if (exit == 0) {

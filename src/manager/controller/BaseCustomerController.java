@@ -1,8 +1,10 @@
 package manager.controller;
 
+import manager.domain.Fruit;
 import manager.service.FruitService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public interface BaseCustomerController {
@@ -16,9 +18,9 @@ public interface BaseCustomerController {
 
     public void findAllFruit() throws IOException;
 
-    public void buyFruit() throws IOException;
+    public ArrayList<Fruit> buyFruit() throws IOException;
 
-    public void checkout();
+    public void checkout(ArrayList<Fruit> boughtFruit);
 
     //    录入水果ID
     public String inputFruitId() throws IOException;
