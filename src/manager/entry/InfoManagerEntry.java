@@ -52,7 +52,7 @@ public class InfoManagerEntry {
                                     break l1;
                                 }
                             }
-//                            判断密码是否正确
+                            //判断密码是否正确
                             System.out.println("请输入管理员密码：");
                             String passwd = sc.next();
                             boolean isManager2 = otherManagerController.logInPassword(passwd);
