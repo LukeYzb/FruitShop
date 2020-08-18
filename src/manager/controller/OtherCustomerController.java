@@ -27,7 +27,7 @@ public class OtherCustomerController implements BaseCustomerController {
             System.out.print("\t②查看水果");
             System.out.print("\t③购买水果");
             System.out.print("\t④结账");
-            System.out.println("\t⑤退出");
+            System.out.println("\t⑤返回上一层");
             System.out.print("请输入要选择的操作（1~5）：");
             lo:
             while (true) {
