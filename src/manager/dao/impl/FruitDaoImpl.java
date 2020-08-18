@@ -3,6 +3,7 @@ package manager.dao.impl;
 import manager.dao.FruitDao;
 import manager.domain.Customer;
 import manager.domain.Fruit;
+import manager.util.StreamUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,77 +12,52 @@ import java.util.List;
 public class FruitDaoImpl implements FruitDao {
 
     @Override
-    public boolean addFruit(Fruit fruit) throws IOException {
-        Fruit byId = getById(fruit.getId());
-        if (byId != null) {
+    public boolean addFruit(Fruit fruit) {
+        return StreamUtils.add(Fruit.class, fruit);
+    }
+
+    @Override
+    public List<Fruit> findAllFruit() {
+        return StreamUtils.findAll(Fruit.class);
+    }
+
+    @Override
+    public boolean deleteFruitById(String delId) {
+        return StreamUtils.deleteById(Fruit.class, delId);
+    }
+
+    @Override
+    public Fruit getById(String id) {
+        return StreamUtils.getById(Fruit.class, id);
+    }
+
+
+    @Override
+    public boolean updateFruit(Fruit fruit) {
+        return StreamUtils.update(Fruit.class, fruit);
+    }
+
+    @Override
+    public boolean buyFruit(String name, String amount) {
+        Fruit fruit = getByName(name);
+        String[] split = fruit.toTxt().split(",");
+        int quantity = Integer.parseInt(split[3]);
+        quantity = quantity - Integer.parseInt(amount);
+        if(quantity>=0){
+            String result = Integer.toString(quantity);
+            Fruit fruit1 = new Fruit(split[0], split[1], split[2], result);
+            updateFruit(fruit1);
+            return true;
+        }else {
             return false;
         }
-        List<Fruit> allFruit = findAllFruit();
-        allFruit.add(fruit);
-        BufferedWriter bw = new BufferedWriter(new FileWriter(".\\fruit.txt"));
-        for (Fruit fruit1 : allFruit) {
-            String s = fruit1.toTxt();
-            bw.write(s);
-        }
-        bw.close();
-        return true;
     }
 
     @Override
-    public List<Fruit> findAllFruit() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(".\\fruit.txt"));
-        String s;
-        List<Fruit> fruits = new ArrayList<>();
-        while ((s = br.readLine()) != null) {
-            Fruit fruit = Fruit.toObj(s);
-            fruits.add(fruit);
-        }
-        br.close();
-//        Fruit[] fruits1= (Fruit[]) fruits.toArray();
-        return fruits;
-    }
-
-    @Override
-    public boolean deleteFruitById(String delId) throws IOException {
-        Fruit byId = getById(delId);
-        if (byId == null) {
-            return false;
-        }
-        List<Fruit> allFruit = findAllFruit();
-        allFruit.remove(byId);
-        BufferedWriter bw = new BufferedWriter(new FileWriter(".\\fruit.txt"));
-        for (Fruit fruit : allFruit) {
-            String s = fruit.toTxt();
-            bw.write(s);
-        }
-        bw.close();
-        return true;
-    }
-
-    @Override
-    public Fruit getById(String id) throws IOException {
-        List<Fruit> allFruit = findAllFruit();
-        for (Fruit fruit : allFruit) {
-            String s = fruit.toTxt();
-            String[] strings = s.split(",");
-            if (strings[0].equals(id)) {
-                return fruit;
-            }
-        }
-        return null;
+    public Fruit getByName(String name) {
+        return StreamUtils.getByName(Fruit.class, name);
     }
 
 
-    @Override
-    public boolean updateFruit(Fruit fruit) throws IOException {
-        String[] strings = fruit.toTxt().split(",");
-        String id = strings[0];
-        boolean d = deleteFruitById(id);
-        boolean a = addFruit(fruit);
-        return d && a;
-    }
-
-    public void buyFruit(String name, String amount) {
-    }
 }
 

@@ -319,8 +319,7 @@ public class OtherManagerController implements BaseManagerController {
                 l1:
                 while (true) {
                     boolean exists = customerService.isExists(delId);
-                    if (!exists) {//exists为负,则执行
-                        Customer customer = inputCustomerInfo(delId);
+                    if (exists) {//exists为负,则执行
                         boolean result = customerService.deleteCustomerById(delId);
 //        根据返回的bool结果显示是否成功
                         if (result) {
@@ -413,7 +412,7 @@ public class OtherManagerController implements BaseManagerController {
                 while (true) {
                     boolean exists = customerService.isExists(delId);
                     if (!exists) {//exists为负,则执行
-                        boolean result = FruitService.deleteFruitById(delId);
+                        boolean result = fruitService.deleteFruitById(delId);
 //        根据返回的bool结果显示是否成功
                         if (result) {
                             System.out.println("删除成功。");
@@ -582,7 +581,7 @@ public class OtherManagerController implements BaseManagerController {
                         }
                     } else {
                         Fruit fruit = inputFruitInfo(addId);
-                        boolean result = FruitService.addFruit(fruit);
+                        boolean result = fruitService.addFruit(fruit);
 //        根据返回的bool结果显示添加是否成功
                         if (result) {
                             System.out.println("添加成功。");

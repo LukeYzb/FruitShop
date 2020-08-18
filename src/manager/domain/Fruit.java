@@ -46,6 +46,12 @@ public class Fruit extends Obj {
                 + price + ","
                 + amount;
     }
+    public String toShow() {
+        return this.getId() + "    "
+                + this.getName() + "      "
+                + price + "      "
+                + amount;
+    }
 
     public static Fruit toObj(String s) {
         if (s == null) {

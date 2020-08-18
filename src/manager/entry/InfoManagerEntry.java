@@ -13,9 +13,9 @@ public class InfoManagerEntry {
         l:
         while (true) {
             System.out.println("----------欢迎使用水果店管理系统----------");
-            System.out.print("①：顾客角色");
-            System.out.print("\t②：管理角色");
-            System.out.println("\t③：退出系统");
+            System.out.print("①顾客角色");
+            System.out.print("\t②管理角色");
+            System.out.println("\t③退出系统");
             System.out.print("请输入要选择的操作（1~3）：");
             lo:
             while (true) {
@@ -78,7 +78,7 @@ public class InfoManagerEntry {
                         break lo;
                     case "3":
                         System.out.println("退出成功,欢迎下次使用！");
-//                        退出当前正在运行的JVM虚拟机
+                        //退出当前正在运行的JVM虚拟机
                         System.exit(0);
                     default:
                         System.out.print("输入有误，请重新输入。");

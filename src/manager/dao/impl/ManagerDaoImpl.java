@@ -1,8 +1,10 @@
 package manager.dao.impl;
 
 import manager.dao.ManagerDao;
+import manager.domain.Customer;
 import manager.domain.Fruit;
 import manager.domain.Manager;
+import manager.util.StreamUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,72 +14,28 @@ public class ManagerDaoImpl implements ManagerDao {
 
 
     @Override
-    public boolean addManager(Manager manager) throws IOException {
-        Manager byId = getById(manager.getId());
-        if (byId != null) {
-            return false;
-        }
-        List<Manager> allManager = findAllManager();
-        allManager.add(manager);
-        BufferedWriter bw = new BufferedWriter(new FileWriter(".\\manager.txt"));
-        for (Manager manager1 : allManager) {
-            String s = manager1.toTxt();
-            bw.write(s);
-        }
-        bw.close();
-        return true;
+    public boolean addManager(Manager manager) {
+        return StreamUtils.add(Manager.class, manager);
     }
 
     @Override
-    public List<Manager> findAllManager() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(".\\manager.txt"));
-        String s;
-        List<Manager> managers = new ArrayList<>();
-        while ((s = br.readLine()) != null) {
-            Manager manager = Manager.toObj(s);
-            managers.add(manager);
-        }
-        br.close();
-        return managers;
+    public List<Manager> findAllManager() {
+        return StreamUtils.findAll(Manager.class);
     }
 
     @Override
-    public boolean deleteManagerById(String delId) throws IOException {
-        Manager byId = getById(delId);
-        if (byId == null) {
-            return false;
-        }
-        List<Manager> allManager = findAllManager();
-        allManager.remove(byId);
-        BufferedWriter bw = new BufferedWriter(new FileWriter(".\\manager.txt"));
-        for (Manager manager : allManager) {
-            String s = manager.toTxt();
-            bw.write(s);
-        }
-        bw.close();
-        return true;
+    public boolean deleteManagerById(String delId) {
+        return StreamUtils.deleteById(Manager.class, delId);
     }
 
     @Override
-    public Manager getById(String id) throws IOException {
-        List<Manager> allManager = findAllManager();
-        for (Manager manager : allManager) {
-            String s = manager.toTxt();
-            String[] strings = s.split(",");
-            if (strings[0].equals(id)) {
-                return manager;
-            }
-        }
-        return null;
+    public Manager getById(String id) {
+        return StreamUtils.getById(Manager.class, id);
     }
 
     @Override
-    public boolean updateManager(Manager manager) throws IOException {
-        String[] strings = manager.toTxt().split(",");
-        String id = strings[0];
-        boolean d = deleteManagerById(id);
-        boolean a = addManager(manager);
-        return d && a;
+    public boolean updateManager(Manager manager) {
+        return StreamUtils.update(Manager.class, manager);
     }
 }
 

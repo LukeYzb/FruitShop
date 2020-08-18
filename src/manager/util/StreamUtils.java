@@ -66,6 +66,7 @@ public class StreamUtils {
         //得到findAllCustomer的list
         List<T> all = findAll(clazz);
         //遍历list,删掉byId对象,得到一个新的list
+//        需要修改，list移除指定对象，下一行代码不可行
         all.remove(byId);
         //将新的list写进本地customer文件中
         writeIO(fileName, all);
@@ -165,7 +166,7 @@ public class StreamUtils {
     private static <T extends Obj> void writeIO(String fileName, List<T> all) {
         BufferedWriter bw = null;
         try {
-            bw = new BufferedWriter(new FileWriter("fruitshop\\" + fileName + ".txt"));
+            bw = new BufferedWriter(new FileWriter(".\\" + fileName + ".txt"));
             //list遍历,totxt
             for (T t1 : all) {
                 String s = t1.toTxt();
@@ -195,7 +196,7 @@ public class StreamUtils {
     private static <T extends Obj> List<T> readIO(Class<T> clazz, String fileName, List<T> list) {
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader("fruitshop\\" + fileName + ".txt"));
+            br = new BufferedReader(new FileReader(".\\" + fileName + ".txt"));
             String s;
             list = new ArrayList<>();
             while ((s = br.readLine()) != null) {
