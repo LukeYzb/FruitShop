@@ -4,6 +4,7 @@ import manager.dao.FruitDao;
 import manager.dao.impl.FruitDaoImpl;
 import manager.domain.Fruit;
 import manager.factory.FruitDaoFactory;
+import manager.util.StreamUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,19 +17,17 @@ public class FruitService {
     //private  FruitDao fruitDao = FruitDaoFactory.getFruitDao();
     //通过名称判断水果是否存在
     public  boolean isExist(String name) throws IOException {
-        Fruit[] fruits = fruitDao.findAllFruit().toArray(new Fruit[0]);
-        //假设id不存在
-        boolean exists = false;
-        //遍历数组
-        for (int i = 0; i < fruits.length; i++) {
-            Fruit fruit = fruits[i];
-            if (fruit != null && fruit.getName().equals(name)) {
-                exists = true;
-                break;
-            }
+        Fruit byName = fruitDao.getByName(name);
+        if(byName==null){
+            return false;
+        }else {
+            return true;
         }
-        return exists;
      }
+
+    public Fruit getByName(String name) {
+        return fruitDao.getByName(name);
+    }
 
     public boolean updateFruit(Fruit newfruit) {
         return fruitDao.updateFruit(newfruit);
