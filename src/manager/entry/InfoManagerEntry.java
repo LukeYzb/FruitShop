@@ -25,6 +25,7 @@ public class InfoManagerEntry {
                     case "1":
                         //开启顾客系统
                         OtherCustomerController customerController = new OtherCustomerController();
+                        customerController.logIn();
                         customerController.start();
                         break lo;
                     case "2":

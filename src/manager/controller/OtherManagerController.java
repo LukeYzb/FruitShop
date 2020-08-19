@@ -572,7 +572,7 @@ public class OtherManagerController implements BaseManagerController {
                 while (true) {
                     boolean exists = customerService.isExists(addId);
                     if (!exists) {//exists为正,则执行
-                        System.out.println("账号已存在，退出请输入exit，不退出请重新输入账号：");
+                        System.out.println("ID不存在，退出请输入exit，不退出请重新输入账号：");
                         String exit;
                         exit = sc.next();
                         if (exit.equals("exit")) {

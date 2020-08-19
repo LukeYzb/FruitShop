@@ -23,11 +23,10 @@ public class OtherCustomerController implements BaseCustomerController {
         l:
         while (true) {
             System.out.println("-----------欢迎使用顾客购买功能!-----------");
-            System.out.print("①登录");
-            System.out.print("\t②查看水果");
-            System.out.print("\t③购买水果");
-            System.out.print("\t④结账");
-            System.out.println("\t⑤返回上一层");
+            System.out.print("①查看水果");
+            System.out.print("\t②购买水果");
+            System.out.print("\t③结账");
+            System.out.println("\t④返回上一层");
             System.out.print("请输入要选择的操作（1~5）：");
             lo:
             while (true) {
@@ -35,18 +34,15 @@ public class OtherCustomerController implements BaseCustomerController {
                 lo1:
                 switch (choice) {
                     case "1":
-                        logIn();
-                        break lo;
-                    case "2":
                         findAllFruit();
                         break lo;
-                    case "3":
+                    case "2":
                         buyFruit();
                         break lo;
-                    case "4":
+                    case "3":
                         checkout();
                         break lo;
-                    case "5":
+                    case "4":
                         System.out.println("退出成功");
                         break l;
                     default:
@@ -60,11 +56,16 @@ public class OtherCustomerController implements BaseCustomerController {
     @Override
     public void logIn() throws IOException {
         CustomerService customerService = new CustomerService();
+        System.out.println("---请先登录,无账号请先注册账号---");
         while (true) {
-            System.out.println("请输入账户:");
+            System.out.println("请输入账户(输入n返回):");
             String id = sc.next();
+            if(id.equalsIgnoreCase("N")){
+                break;
+            }
             System.out.println("请输入密码:");
             String password = sc.next();
+            //通过customerService.isExist()返回的true或者false判断账号和密码的正确性
             boolean flag = customerService.isExist(id, password);
             if (!flag) {
                 System.out.println("账号或者密码有误");
@@ -79,7 +80,7 @@ public class OtherCustomerController implements BaseCustomerController {
     public void findAllFruit() throws IOException {
         FruitService fruitService=new FruitService();
         ArrayList<Fruit> fruits = fruitService.findAllFruit();
-        //判断数组是否为空
+        //判断集合是否为空集合，如果为空提示没有信息
         if (fruits == null) {
             System.out.println("查无信息，请添加后重试");
             return;
@@ -98,8 +99,11 @@ public class OtherCustomerController implements BaseCustomerController {
         FruitService fruitService=new FruitService();
         lock: while (true) {
             lo2: while(true){
-                System.out.println("请输入你要购买的水果");
+                System.out.println("请输入你要购买的水果(输入n返回)");
                 String name = sc.next();
+                if(name.equalsIgnoreCase("N")){
+                    break lock;
+                }
                 boolean exists = fruitService.isExist(name);
                 if(!exists){
                     System.out.println("你输入的水果不存在，重新输入");
@@ -117,7 +121,6 @@ public class OtherCustomerController implements BaseCustomerController {
                     break lock;
                 }
             }
-
         }
     }
 
