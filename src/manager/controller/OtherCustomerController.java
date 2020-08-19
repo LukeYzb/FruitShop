@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class OtherCustomerController implements BaseCustomerController {
-//    FruitService fruitService = new FruitService();
+    //    FruitService fruitService = new FruitService();
     CustomerService customerService = new CustomerService();
-//    OtherManagerController otherManagerController = new OtherManagerController();
+    //    OtherManagerController otherManagerController = new OtherManagerController();
 //    Customer customer = new Customer();
-    ArrayList<Fruit> fruits=new ArrayList<>();
+    ArrayList<Fruit> fruits = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
 
     //    开启顾客购买系统，展示菜单
@@ -64,7 +64,7 @@ public class OtherCustomerController implements BaseCustomerController {
         while (true) {
             System.out.println("请输入账户(输入N返回):");
             id = sc.next();
-            if(id.equalsIgnoreCase("N")){
+            if (id.equalsIgnoreCase("N")) {
                 break;
             }
             System.out.println("请输入密码:");
@@ -102,12 +102,14 @@ public class OtherCustomerController implements BaseCustomerController {
     public ArrayList<Fruit> buyFruit() throws IOException {
         ArrayList<Fruit> boughtFruit = new ArrayList<>();
         CustomerService customer = new CustomerService();
-        FruitService fruitService=new FruitService();
-        lock: while (true) {
-            lo2: while(true){
+        FruitService fruitService = new FruitService();
+        lock:
+        while (true) {
+            lo2:
+            while (true) {
                 System.out.println("请输入你要购买的水果(输入n返回)");
                 String name = sc.next();
-                if(name.equalsIgnoreCase("N")){
+                if (name.equalsIgnoreCase("N")) {
                     break lock;
                 }
                 boolean exists = fruitService.isExist(name);
@@ -123,7 +125,7 @@ public class OtherCustomerController implements BaseCustomerController {
                 customer.buyFruit(name, amount);
                 if (go.equalsIgnoreCase("Y")) {
                     break lo2;
-                } else{
+                } else {
                     System.out.println("购物结束，请结账");
                     break lock;
                 }

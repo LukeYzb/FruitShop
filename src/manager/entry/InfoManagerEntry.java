@@ -26,12 +26,12 @@ public class InfoManagerEntry {
                         //开启顾客系统
                         OtherCustomerController customerController = new OtherCustomerController();
                         lo1a:
-                        while(true){
+                        while (true) {
                             String id = customerController.logIn();
-                            if(id.equals("N")){
+                            if (id.equals("N")) {
                                 System.out.println("退出成功！");
                                 break lo;
-                            }else {
+                            } else {
                                 customerController.start(id);
                                 break lo1a;
                             }
