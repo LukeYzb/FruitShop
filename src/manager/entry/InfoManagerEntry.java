@@ -28,7 +28,7 @@ public class InfoManagerEntry {
                         lo1a:
                         while (true) {
                             String id = customerController.logIn();
-                            if (id.equals("N")) {
+                            if (id.equalsIgnoreCase("n")) {
                                 System.out.println("退出成功！");
                                 break lo;
                             } else {

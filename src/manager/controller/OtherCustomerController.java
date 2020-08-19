@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class OtherCustomerController implements BaseCustomerController {
     //    FruitService fruitService = new FruitService();
     CustomerService customerService = new CustomerService();
+    ArrayList<Fruit> boughtFruit = new ArrayList<>();
     //    OtherManagerController otherManagerController = new OtherManagerController();
 //    Customer customer = new Customer();
     ArrayList<Fruit> fruits = new ArrayList<>();
@@ -41,7 +42,7 @@ public class OtherCustomerController implements BaseCustomerController {
                         break lo;
                     case "2":
                         fruits = buyFruit();
-                        //break lo;
+                        break lo;
                     case "3":
                         checkout(fruits, id);
                         break lo;
@@ -64,7 +65,7 @@ public class OtherCustomerController implements BaseCustomerController {
         while (true) {
             System.out.println("请输入账户(输入N返回):");
             id = sc.next();
-            if (id.equalsIgnoreCase("N")) {
+            if (id.equalsIgnoreCase("n")) {
                 break;
             }
             System.out.println("请输入密码:");
@@ -92,7 +93,6 @@ public class OtherCustomerController implements BaseCustomerController {
         }
         //遍历数组打印水果信息
         System.out.println("编号\t\t\t名称\t\t价格\t\t库存量");
-
         for (Fruit fruit : fruits) {
             System.out.println(fruit.toShow());
         }
@@ -100,34 +100,41 @@ public class OtherCustomerController implements BaseCustomerController {
 
     @Override
     public ArrayList<Fruit> buyFruit() throws IOException {
-        ArrayList<Fruit> boughtFruit = new ArrayList<>();
         CustomerService customer = new CustomerService();
         FruitService fruitService = new FruitService();
         lock:
         while (true) {
-            lo2:
+            lo:
             while (true) {
-                System.out.println("请输入你要购买的水果(输入n返回)");
+                System.out.println("请输入你要购买的水果");
                 String name = sc.next();
-                if (name.equalsIgnoreCase("N")) {
-                    break lock;
-                }
                 boolean exists = fruitService.isExist(name);
                 Fruit byName = fruitService.getByName(name);
                 if (!exists) {
                     System.out.println("你输入的水果不存在，重新输入");
-                    break lo2;
+                    break lo;
                 }
-                System.out.println("请输入你要购买的数量");
-                String amount = sc.next();
+                lo1:
+                while(true) {
+                    System.out.println("请输入你要购买的数量");
+                    String amount = sc.next();
+                    byName.setAmount(amount);
+                    boolean amountOutOfRange = customer.buyFruit(name, amount);
+                    if(amountOutOfRange){
+                        break lo1;
+                    }else {
+                        System.out.println("库存不足！");
+                    }
+                }
+                boughtFruit.add(byName);
                 System.out.println("是否继续购买Y/N");
                 String go = sc.next();
-                customer.buyFruit(name, amount);
                 if (go.equalsIgnoreCase("Y")) {
-                    break lo2;
-                } else {
-                    System.out.println("购物结束，请结账");
+                    break lo;
+                } else if (go.equalsIgnoreCase("N")) {
                     break lock;
+                } else {
+                    System.out.println("您的输入有误");
                 }
             }
         }
@@ -142,11 +149,13 @@ public class OtherCustomerController implements BaseCustomerController {
         for (Fruit fruit : boughtFruit) {
             String[] split = fruit.toTxt().split(",");
             int total = Integer.parseInt(split[2]) * Integer.parseInt(split[3]);
-            System.out.println(split[1] + "\t\t" + split[2] + "\t\t" + split[3] + "\t\t" + total);
+            System.out.println(split[1] + "\t\t" + split[2] + "\t\t" + split[3] + "\t" + total);
             totalPrice += total;
         }
         int finalPrice = customerService.checkout(totalPrice, id);
         System.out.println("总价为" + totalPrice + "\t\t\t\t\t\t" + "优惠后的价格为" + finalPrice);
+        //结账后账单清空
+        boughtFruit.clear();
     }
 
     //录入水果ID，可以用在buyFruit功能里
