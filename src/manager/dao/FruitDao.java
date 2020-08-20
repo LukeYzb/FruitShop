@@ -1,7 +1,6 @@
 package manager.dao;
 
 import manager.domain.Fruit;
-
 import java.io.IOException;
 import java.util.List;
 

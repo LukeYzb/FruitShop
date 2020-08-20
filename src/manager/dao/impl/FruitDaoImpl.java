@@ -1,12 +1,8 @@
 package manager.dao.impl;
 
 import manager.dao.FruitDao;
-import manager.domain.Customer;
 import manager.domain.Fruit;
 import manager.util.StreamUtils;
-
-import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FruitDaoImpl implements FruitDao {

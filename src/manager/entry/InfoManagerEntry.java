@@ -2,8 +2,6 @@ package manager.entry;
 
 import manager.controller.OtherCustomerController;
 import manager.controller.OtherManagerController;
-import manager.domain.Customer;
-
 import java.io.IOException;
 import java.util.Scanner;
 

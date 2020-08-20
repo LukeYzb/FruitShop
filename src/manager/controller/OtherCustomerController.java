@@ -1,15 +1,12 @@
 package manager.controller;
 
-import manager.dao.impl.CustomerDaoImpl;
-import manager.dao.impl.FruitDaoImpl;
-import manager.domain.Customer;
 import manager.domain.Fruit;
 import manager.service.CustomerService;
 import manager.service.FruitService;
-
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class OtherCustomerController implements BaseCustomerController {
@@ -153,9 +150,9 @@ public class OtherCustomerController implements BaseCustomerController {
             totalPrice += total;
         }
         double finalPrice = customerService.checkout(totalPrice, id, boughtFruit);
-        System.out.println("总价为" + totalPrice + "\t\t\t\t" + "优惠后的价格为" + finalPrice);
+        DecimalFormat df=new DecimalFormat("#.00");
+        System.out.println("总价为" + df.format(totalPrice) + "\t\t\t\t" + "优惠后的价格为" + df.format(finalPrice));
         //结账后账单清空
         boughtFruit.clear();
     }
-
 }

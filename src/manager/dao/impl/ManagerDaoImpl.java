@@ -1,13 +1,8 @@
 package manager.dao.impl;
 
 import manager.dao.ManagerDao;
-import manager.domain.Customer;
-import manager.domain.Fruit;
 import manager.domain.Manager;
 import manager.util.StreamUtils;
-
-import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerDaoImpl implements ManagerDao {

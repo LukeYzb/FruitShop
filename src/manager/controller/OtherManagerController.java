@@ -1,6 +1,5 @@
 package manager.controller;
 
-import manager.dao.CustomerDao;
 import manager.dao.impl.CustomerDaoImpl;
 import manager.dao.impl.FruitDaoImpl;
 import manager.domain.Customer;
@@ -8,7 +7,6 @@ import manager.domain.Fruit;
 import manager.service.CustomerService;
 import manager.service.FruitService;
 import manager.service.ManagerService;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,7 @@
 package manager.service;
 
-import manager.dao.FruitDao;
 import manager.dao.impl.FruitDaoImpl;
 import manager.domain.Fruit;
-import manager.factory.FruitDaoFactory;
-import manager.util.StreamUtils;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
