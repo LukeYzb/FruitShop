@@ -7,6 +7,7 @@ import manager.domain.Fruit;
 import manager.service.CustomerService;
 import manager.service.FruitService;
 import manager.service.ManagerService;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -650,33 +651,41 @@ public class OtherManagerController implements BaseManagerController {
     }
 
     public Customer inputCustomerMoney(String id) throws IOException {
-        //根据ID修改顾客
-        String passwd = "";
-        String name = "";
-        System.out.println("请输入充值金额：");
-        String amount = sc.next();
-        //String金额强转int
-        double amo = Double.parseDouble(amount);
-        //获取对应顾客的余额、姓名和密码
-        CustomerDaoImpl newcustomer1 = new CustomerDaoImpl();
-        String originamount = "0";
-        List<Customer> customers = newcustomer1.findAllCustomer();
-        for (Customer customer : customers) {
-            if (customer.getId().equals(id)) {
-                originamount = customer.getMoney();
-                passwd = customer.getPassword();
-                name = customer.getName();
+        Customer newcustomer;
+        while (true) {
+            //根据ID修改顾客
+            String passwd = "";
+            String name = "";
+            System.out.println("请输入充值金额：");
+            String amount = sc.next();
+            //String金额强转int
+            double amo = Double.parseDouble(amount);
+            //获取对应顾客的余额、姓名和密码
+            CustomerDaoImpl newcustomer1 = new CustomerDaoImpl();
+            String originamount = "0";
+            List<Customer> customers = newcustomer1.findAllCustomer();
+            for (Customer customer : customers) {
+                if (customer.getId().equals(id)) {
+                    originamount = customer.getMoney();
+                    passwd = customer.getPassword();
+                    name = customer.getName();
+                }
+            }
+
+            //String金额强转int
+            double oriamo = Double.parseDouble(originamount);
+            //充值金额加上原来金额=总金额
+            oriamo = amo + oriamo;
+            //int金额强转String
+            amount = String.valueOf(oriamo);
+            if (oriamo >= 0) {
+                //        封装顾客对象并返回
+                newcustomer = new Customer(id, name, passwd, amount);
+                break;
+            } else {
+                System.out.println("顾客金额修改后为负数，请重新输入！");
             }
         }
-
-        //String金额强转int
-        double oriamo = Double.parseDouble(originamount);
-        //充值金额加上原来金额=总金额
-        oriamo = amo + oriamo;
-        //int金额强转String
-        amount = String.valueOf(oriamo);
-        //        封装顾客对象并返回
-        Customer newcustomer = new Customer(id, name, passwd, amount);
         return newcustomer;
     }
 
@@ -733,42 +742,58 @@ public class OtherManagerController implements BaseManagerController {
     }
 
     public Fruit inputFruitPrice(String id) throws IOException {
-        //根据ID修改水果
-        System.out.println("请输入水果价格：");
-        String price = sc.next();
-        //获取对应水果的除价格外其他信息
-        FruitDaoImpl newfruit1 = new FruitDaoImpl();
-        String originamount = "0";
-        String name = "";
-        List<Fruit> fruits = newfruit1.findAllFruit();
-        for (Fruit fruit : fruits) {
-            if (fruit.getId().equals(id)) {
-                originamount = fruit.getAmount();
-                name = fruit.getName();
+        Fruit newfruit;
+        while (true) {
+            //根据ID修改水果
+            System.out.println("请输入水果价格：");
+            String price = sc.next();
+            //获取对应水果的除价格外其他信息
+            FruitDaoImpl newfruit1 = new FruitDaoImpl();
+            String originamount = "0";
+            String name = "";
+            List<Fruit> fruits = newfruit1.findAllFruit();
+            for (Fruit fruit : fruits) {
+                if (fruit.getId().equals(id)) {
+                    originamount = fruit.getAmount();
+                    name = fruit.getName();
+                }
+            }
+            if (Double.parseDouble(price) >= 0) {
+                //将键盘录入信息封装为水果对象
+                newfruit = new Fruit(id, name, price, originamount);
+                break;
+            } else {
+                System.out.println("水果的价格为负数，请重新输入！");
             }
         }
-        //将键盘录入信息封装为水果对象
-        Fruit newfruit = new Fruit(id, name, price, originamount);
         return newfruit;
     }
 
     public Fruit inputFruitAmount(String id) throws IOException {
-        //根据ID修改水果
-        System.out.println("请输入水果库存：");
-        String amount = sc.next();
-        //获取对应水果的除库存外其他信息
-        FruitDaoImpl newfruit1 = new FruitDaoImpl();
-        String name = "";
-        String price = "0";
-        List<Fruit> fruits = newfruit1.findAllFruit();
-        for (Fruit fruit : fruits) {
-            if (fruit.getId().equals(id)) {
-                name = fruit.getName();
-                price = fruit.getPrice();
+        Fruit newfruit;
+        while (true) {
+            //根据ID修改水果
+            System.out.println("请输入水果库存：");
+            String amount = sc.next();
+            //获取对应水果的除库存外其他信息
+            FruitDaoImpl newfruit1 = new FruitDaoImpl();
+            String name = "";
+            String price = "0";
+            List<Fruit> fruits = newfruit1.findAllFruit();
+            for (Fruit fruit : fruits) {
+                if (fruit.getId().equals(id)) {
+                    name = fruit.getName();
+                    price = fruit.getPrice();
+                }
+            }
+            if (Double.parseDouble(amount) >= 0) {
+                //将键盘录入信息封装为水果对象
+                newfruit = new Fruit(id, name, price, amount);
+                break;
+            } else {
+                System.out.println("水果的库存为负数，请重新输入！");
             }
         }
-        //将键盘录入信息封装为水果对象
-        Fruit newfruit = new Fruit(id, name, price, amount);
         return newfruit;
     }
 
