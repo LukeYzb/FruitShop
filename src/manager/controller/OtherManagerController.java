@@ -62,7 +62,7 @@ public class OtherManagerController implements BaseManagerController {
             System.out.println("----------欢迎使用管理功能!----------");
             System.out.print("①管理用户");
             System.out.print("\t②管理水果");
-            System.out.println("\t③退出");
+            System.out.println("\t③返回上一层");
             System.out.print("请输入要选择的操作（1~3）：");
             lo:
             while (true) {
@@ -97,7 +97,7 @@ public class OtherManagerController implements BaseManagerController {
             System.out.print("\t②编辑现用户");
             //扩展了删除用户
             System.out.print("\t③删除现用户");
-            System.out.println("\t④退出");
+            System.out.println("\t④返回上一层");
             System.out.print("请输入要选择的操作（1~4）：");
             lo:
             while (true) {
@@ -192,7 +192,7 @@ public class OtherManagerController implements BaseManagerController {
             System.out.print("①充值");
             System.out.print("\t②改名");
             System.out.print("\t③改密码");
-            System.out.println("\t④退出");
+            System.out.println("\t④返回上一层");
             System.out.print("请输入要选择的操作（1~4）：");
             lo:
             while (true) {
@@ -351,10 +351,10 @@ public class OtherManagerController implements BaseManagerController {
             //①②③④⑤
             System.out.println("----------欢迎使用水果管理功能!----------");
             System.out.print("①添加水果");
-            System.out.print("\t②修改水果数据");
+            System.out.print("  ②修改水果数据");
             //扩展了删除水果
-            System.out.print("\t③删除水果数据");
-            System.out.println("\t④返回上一层");
+            System.out.print("  ③删除水果数据");
+            System.out.println("  ④返回上一层");
             System.out.print("请输入要选择的操作（1~4）：");
             lo:
             while (true) {
@@ -409,8 +409,8 @@ public class OtherManagerController implements BaseManagerController {
                 l1:
                 while (true) {
                     boolean exists = customerService.isExists(delId);
-                    //exists为负,则执行
-                    if (!exists) {
+                    //水果存在,则执行
+                    if (exists) {
                         boolean result = fruitService.deleteFruitById(delId);
                         //根据返回的bool结果显示是否成功
                         if (result) {
@@ -443,7 +443,7 @@ public class OtherManagerController implements BaseManagerController {
             System.out.print("①修改价格");
             System.out.print("\t②修改库存");
             System.out.print("\t③修改名称");
-            System.out.println("\t④退出");
+            System.out.println("\t④返回上一层");
             System.out.print("请输入要选择的操作（1~4）：");
             lo:
             while (true) {
@@ -568,8 +568,8 @@ public class OtherManagerController implements BaseManagerController {
                 l1:
                 while (true) {
                     boolean exists = customerService.isExists(addId);
-                    if (!exists) {//exists为正,则执行
-                        System.out.println("ID不存在，退出请输入exit，不退出请重新输入账号：");
+                    if (exists) {//exists为正,则执行
+                        System.out.println("ID已存在，退出请输入exit，不退出请重新输入账号：");
                         String exit;
                         exit = sc.next();
                         if (exit.equals("exit")) {
