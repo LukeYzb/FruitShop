@@ -90,7 +90,7 @@ public class InfoManagerEntry {
                         //退出当前正在运行的JVM虚拟机
                         System.exit(0);
                     default:
-                        System.out.print("输入有误，请重新输入。");
+                        System.out.print("输入有误，请重新输入：");
                         break lo1;
                 }
             }

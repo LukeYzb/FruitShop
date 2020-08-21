@@ -79,7 +79,7 @@ public class OtherManagerController implements BaseManagerController {
                         //退出当前正在运行的JVM虚拟机
                         break l;
                     default:
-                        System.out.print("输入有误，请重新输入。");
+                        System.out.print("输入有误，请重新输入：");
                         break lo1;
                 }
             }
@@ -111,7 +111,6 @@ public class OtherManagerController implements BaseManagerController {
                     case "2":
                         findAllCustomer();
                         customerManagement();
-                        findAllCustomer();
                         break lo;
                     case "3":
                         findAllCustomer();
@@ -230,6 +229,7 @@ public class OtherManagerController implements BaseManagerController {
                                 }
                             }
                         }
+                        findAllCustomer();
                         break lo;
                     case "2":
                         lii:
@@ -263,6 +263,7 @@ public class OtherManagerController implements BaseManagerController {
                                 }
                             }
                         }
+                        findAllCustomer();
                         break lo;
                     case "3":
                         liii:
@@ -296,13 +297,14 @@ public class OtherManagerController implements BaseManagerController {
                                 }
                             }
                         }
+                        findAllCustomer();
                         break lo;
                     case "4":
                         System.out.println("退出成功！");
                         //退出当前正在运行的JVM虚拟机
                         break l;
                     default:
-                        System.out.print("输入有误，请重新输入。");
+                        System.out.print("输入有误，请重新输入：");
                         break lo1;
                 }
             }

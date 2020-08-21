@@ -10,11 +10,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class OtherCustomerController implements BaseCustomerController {
-    //    FruitService fruitService = new FruitService();
     CustomerService customerService = new CustomerService();
     ArrayList<Fruit> boughtFruit = new ArrayList<>();
-    //    OtherManagerController otherManagerController = new OtherManagerController();
-//    Customer customer = new Customer();
     ArrayList<Fruit> fruits = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
 
@@ -131,6 +128,7 @@ public class OtherCustomerController implements BaseCustomerController {
                     if (go.equalsIgnoreCase("Y")) {
                         break lo;
                     } else if (go.equalsIgnoreCase("N")) {
+                        System.out.println("购买结束，请选择结账功能结账。");
                         break lock;
                     } else {
                         System.out.println("您的输入有误");
